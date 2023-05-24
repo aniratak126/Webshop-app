@@ -16,6 +16,8 @@ namespace Web2BE.Models
         private DateTime expDate;
         private string imgUrl;
         private int status;
+        private string description;
+        private string type;
 
         public int Id { get => id; set => id = value; }
         public string Name { get => name; set => name = value; }
@@ -26,5 +28,7 @@ namespace Web2BE.Models
         public DateTime ExpDate { get => expDate; set => expDate = value; }
         public string ImgUrl { get => imgUrl; set => imgUrl = value; }
         public int Status { get => status; set => status = value; }
+        public string Description { get => description; set => description = value; }
+        public string Type { get => type; set => type = value; }
     }
 }

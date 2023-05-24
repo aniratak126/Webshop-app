@@ -13,6 +13,7 @@ namespace Web2BE.Models
         private decimal discount;
         private int quantity;
         private decimal totalPrice;
+        private int medicineId;
 
         public int Id { get => id; set => id = value; }
         public int UserId { get => userId; set => userId = value; }
@@ -20,5 +21,6 @@ namespace Web2BE.Models
         public decimal Discount { get => discount; set => discount = value; }
         public int Quantity { get => quantity; set => quantity = value; }
         public decimal TotalPrice { get => totalPrice; set => totalPrice = value; }
+        public int MedicineId { get => medicineId; set => medicineId = value; }
     }
 }

@@ -12,59 +12,49 @@ namespace Web2BE.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UsersController : ControllerBase
+    public class MedicinesController : ControllerBase
     {
         private readonly IConfiguration _configuration;
-        public UsersController(IConfiguration configuration)
+        public MedicinesController(IConfiguration configuration)
         {
             _configuration = configuration;
         }
 
         [HttpPost]
-        [Route("registration")]
-        public Response Register(Users users)
+        [Route("addToCart")]
+        public Response AddToCart(Cart cart)
         {
             Response response = new Response();
             DAL dal = new DAL();
             SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("EMedCS").ToString());
-            response = dal.Register(users, connection);
+            response = dal.AddToCart(cart, connection);
 
             return response;
         }
 
         [HttpPost]
-        [Route("login")]
-        public Response Login(Users users)
+        [Route("placeOrder")]
+        public Response PlaceOrder(Users users)
         {
-            DAL dal = new DAL();
-            SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("EMedCS").ToString());
             Response response = new Response();
-            response = dal.Login(users, connection);
+            DAL dal = new DAL();
+            SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("EMedCS").ToString());
+            response = dal.PlaceOrder(users, connection);
 
             return response;
         }
 
         [HttpPost]
-        [Route("viewUser")]
-        public Response ViewUser(Users user)
+        [Route("orderList")]
+        public Response OrderList(Users users)
         {
+            Response response = new Response();
             DAL dal = new DAL();
             SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("EMedCS").ToString());
-            Response response = dal.ViewUser(user, connection);
+            response = dal.OrderList(users, connection);
 
             return response;
         }
 
-        [HttpPost]
-        [Route("updateProfile")]
-        public Response UpdateProfile(Users user)
-        {
-            DAL dal = new DAL();
-            SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("EMedCS").ToString());
-            Response response = dal.UpdateProfile(user, connection);
-
-            return response;
-
-        }
     }
 }
