@@ -266,5 +266,54 @@ namespace Web2BE.Models
 
             return response;
         }
+
+        public Response UserList(SqlConnection connection)
+        {
+            Response response = new Response();
+            List<Users> usrs = new List<Users>();
+            SqlDataAdapter da = new SqlDataAdapter("sp_UserList", connection);
+            da.SelectCommand.CommandType = CommandType.StoredProcedure;
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            if (dt.Rows.Count > 0)
+            {
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    Users user = new Users();
+                    user.Id = Convert.ToInt32(dt.Rows[i]["ID"]);
+                    user.UserName = Convert.ToString(dt.Rows[i]["UserName"]);
+                    user.FirstName = Convert.ToString(dt.Rows[i]["FirstName"]);
+                    user.LastName = Convert.ToString(dt.Rows[i]["LastName"]);
+                    user.BirthDate = Convert.ToDateTime(dt.Rows[i]["BirthDate"]);
+                    user.Adress = Convert.ToString(dt.Rows[i]["Adress"]);
+                    user.Email = Convert.ToString(dt.Rows[i]["Email"]);
+                    user.Password = Convert.ToString(dt.Rows[i]["Password"]);
+                    user.Status = Convert.ToInt32(dt.Rows[i]["Status"]);
+                    user.CreatedOn = Convert.ToDateTime(dt.Rows[i]["CreatedOn"]);
+
+                    usrs.Add(user);
+                }
+                if (usrs.Count > 0)
+                {
+                    response.StatusCode = 200;
+                    response.StatusMessage = "Users details fetched.";
+                    response.listUsers = usrs;
+                }
+                else
+                {
+                    response.StatusCode = 100;
+                    response.StatusMessage = "Users details are not available.";
+                    response.listUsers = null;
+                }
+            }
+            else
+            {
+                response.StatusCode = 100;
+                response.StatusMessage = "Users details are not available.";
+                response.listUsers = null;
+            }
+
+            return response;
+        }
     }
 }

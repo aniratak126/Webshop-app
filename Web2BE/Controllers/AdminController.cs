@@ -30,5 +30,16 @@ namespace Web2BE.Controllers
 
             return response;
         }
+
+        [HttpGet]
+        [Route("userList")]
+        public Response UserList()
+        {
+            DAL dal = new DAL();
+            SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("EMedCS").ToString());
+            Response response = dal.UserList(connection);
+
+            return response;
+        }
     }
 }
